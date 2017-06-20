@@ -4,10 +4,10 @@
     <title>Abelx's Blog</title>
     <description>New blog, just to record. # this means to ignore newlines until &quot;baseurl:&quot;
 </description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 21 Jun 2017 03:42:34 +0800</pubDate>
-    <lastBuildDate>Wed, 21 Jun 2017 03:42:34 +0800</lastBuildDate>
+    <link>http://localhost:4000//</link>
+    <atom:link href="http://localhost:4000//feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 21 Jun 2017 03:45:49 +0800</pubDate>
+    <lastBuildDate>Wed, 21 Jun 2017 03:45:49 +0800</lastBuildDate>
     <generator>Jekyll v3.5.0</generator>
     
       <item>
@@ -79,8 +79,8 @@
 
 </description>
         <pubDate>Wed, 30 Mar 2016 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/jekyll/welcome.html</link>
-        <guid isPermaLink="true">http://localhost:4000/jekyll/welcome.html</guid>
+        <link>http://localhost:4000//jekyll/welcome.html</link>
+        <guid isPermaLink="true">http://localhost:4000//jekyll/welcome.html</guid>
         
         <category>jekyll</category>
         
@@ -429,8 +429,8 @@
 &lt;/div&gt;
 </description>
         <pubDate>Tue, 29 Mar 2016 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/coding/markdown.html</link>
-        <guid isPermaLink="true">http://localhost:4000/coding/markdown.html</guid>
+        <link>http://localhost:4000//coding/markdown.html</link>
+        <guid isPermaLink="true">http://localhost:4000//coding/markdown.html</guid>
         
         <category>code</category>
         
@@ -1076,8 +1076,8 @@
 
 </description>
         <pubDate>Thu, 01 Dec 1921 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/books/aqzhengzhuan.html</link>
-        <guid isPermaLink="true">http://localhost:4000/books/aqzhengzhuan.html</guid>
+        <link>http://localhost:4000//books/aqzhengzhuan.html</link>
+        <guid isPermaLink="true">http://localhost:4000//books/aqzhengzhuan.html</guid>
         
         <category>chinese</category>
         
@@ -1274,8 +1274,8 @@
 
 </description>
         <pubDate>Mon, 01 Apr 1918 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/books/kuangrenriji.html</link>
-        <guid isPermaLink="true">http://localhost:4000/books/kuangrenriji.html</guid>
+        <link>http://localhost:4000//books/kuangrenriji.html</link>
+        <guid isPermaLink="true">http://localhost:4000//books/kuangrenriji.html</guid>
         
         <category>chinese</category>
         
