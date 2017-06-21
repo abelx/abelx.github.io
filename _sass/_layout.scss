@@ -43,11 +43,16 @@
 }
 
 .post-header {
+    background-color: #79afe8;
     margin-bottom: $spacing-unit;
     border-bottom: 1px solid #eee;
 
 }
 
+.post-header1 {
+    border-bottom: 1px solid #eee;
+
+}
 .post-title {
     margin-top: 50px;
     margin-bottom: 30px;
@@ -68,7 +73,7 @@
     text-align: center;
     display: block;
     letter-spacing: 1px;
-    margin-bottom: 80px;
+    margin-bottom: 30px;
 }
 
 .post-tags-item {
@@ -108,7 +113,6 @@
 }
 
 .post-content p {
-    margin: 24px;
     line-height: 25px;
     letter-spacing: 1px;
 }
@@ -119,13 +123,14 @@
  */
 
 .contact-title{
-    margin-top: 30px;
+   /* margin-top: 30px;*/
     font-size: 42px;
+    color: #fff;
 }
 
 .contact-subtitle{
-    color: #6e6e6e;
-    margin-bottom: 80px;
+    color: #b6b6b6;
+    margin-bottom: 30px;
 }
 
 #gpg-fieldset {

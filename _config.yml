@@ -4,8 +4,8 @@ name: Abelx's Blog # your name
 email: theabelx@163.com # your email address
 description: >
     New blog, just to record. # this means to ignore newlines until "baseurl:"
-baseurl: "https://abelx.github.io" # the subpath of your site, e.g. /blog
-url: ""  #the base hostname & protocol for your site
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://abelx.github.io"  #the base hostname & protocol for your site
 twitter_username: itisbenjamin1 # your Twitter username
 github_username: itisbenjamin # your Github username
 disqus_username: itisbenjamin # your disqus username

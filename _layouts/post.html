@@ -2,9 +2,10 @@
 layout: default
 ---
 
-  <header class="post-header">
-
-    <center><div class="post-title" itemprop="name headline">{{ page.title }}</div>
+  <header class="post-header1">
+       <title>{{ page.title }}</title>
+       <meta name="description" content="{{page.title}} from Abelx's blog" />
+       <center><div class="post-title" itemprop="name headline">{{ page.title }}</div>
 
 		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="{{ page.date | date_to_string }}" itemprop="datePublished">{{ page.date | date: "%b %-d %Y" }}</time>
 
@@ -23,7 +24,7 @@ layout: default
     </center>
     
 </header>
-
+<br />
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 <div class="post-content">
     <center>

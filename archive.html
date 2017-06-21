@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Archive
-subtitle: As years flow by.
+subtitle: 目录
 permalink: /archive/
 ---
 
@@ -26,7 +26,8 @@ permalink: /archive/
 
 	<ul>
 		<li><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a><span class="date"> - {{ post.date | date_to_long_string }}</span>
-		</li>
+	<p style="word-wrap: break-word;">{{post.subtitle}}</p>
+    </li>
 	</ul>
 		  
 	{% endfor %}

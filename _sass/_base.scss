@@ -10,6 +10,7 @@
 
 
 body {
+    margin: 0;
     font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family;
     color: $text-color;
     background-color: $background-color;
@@ -63,14 +64,10 @@ figcaption {
  * Lists
  */
 ul, ol {
-    margin-left: $spacing-unit;
     color: #666;
     letter-spacing: 1px;
 }
 
-ul {
-    list-style-type: square;
-}
 
 
 /**
@@ -94,7 +91,7 @@ h6 {
  */
 
 a {
-    color: #25b3bc;
+    color: #79afe8;
     text-decoration: none;
     transition: border .5s;
 }
@@ -107,12 +104,12 @@ a:hover {
 .post-content h2:before {
     content: "¶ ";
     margin-right: 20px;
-    color: #25bcba;
+    color: #79afe8;
 }
 
 .link {
     padding: 2px;
-    color: #25b3bc;
+    color: #79afe8;
     text-decoration: none;
     transition: background-color .7s;
 }
@@ -184,7 +181,7 @@ code {
     border: 1px solid #f8f8f8;
     border-radius: 3px;
     background-color: #f8f8f8;
-    color: #27badf;
+
 }
 
 code {

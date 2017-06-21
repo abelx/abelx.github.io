@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Category
-subtitle: Do something you like.
+subtitle: 分类
 permalink: /category/
 ---
 
@@ -14,6 +14,7 @@ permalink: /category/
 	  <li>
 	  <p><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
 	     <span class="date"> - {{ post.date | date_to_long_string }}</span></p>
+      <p style="word-wrap: break-word;">{{post.subtitle}}</p>
 	  </li>
 	{% endfor %}
 	</ul>
