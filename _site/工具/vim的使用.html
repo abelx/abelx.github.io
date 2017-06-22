@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/%E5%B7%A5%E5%85%B7/vim%E7%9A%84%E4%BD%BF%E7%94%A8.html">
+  <link rel="alternate" type="application/rss+xml" title="Abelx's Blog" href="http://localhost:4000/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="https://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+</head>
+
+
+  
+    <script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+  ga('create', 'UA-75034651-1', 'auto');
+  ga('send', 'pageview');
+    
+	</script>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+
+  <div class="wrapper">
+          <header class="post-header1">
+       <title>vim的使用</title>
+       <meta name="description" content="vim的使用 from Abelx's blog" />
+       <center><div class="post-title" itemprop="name headline">vim的使用</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="22 Jun 2017" itemprop="datePublished">Jun 22 2017</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">abelx</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+		<a class="post-tags-item" href="http://localhost:4000/tags/">vim</a>
+        
+		<a class="post-tags-item" href="http://localhost:4000/tags/">linux</a>
+        
+	</div>
+    </center>
+    
+</header>
+<br />
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+	<p>整理了在使用vim时候遇到的问题和解决方法。整理了使用过程中常用的vim命令。记录了我的.vimrc。这篇博客不会结束，随着vim的使用会一直增加内容。</p>
+	
+    </center>
+	<h2>Directory</h2>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+    <h2 id="我的vimrc">我的.vimrc</h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>set nu
+syntax on
+
+" 自定义键映射，方便使用
+inoremap jk &lt;Esc&gt;
+inoremap vv &lt;Esc&gt;:w&lt;Enter&gt;
+nnoremap vv :w&lt;Enter&gt;
+inoremap qq &lt;Esc&gt;:wq&lt;Enter&gt;
+nnoremap qq :wq&lt;Enter&gt;
+
+set ts=4
+set expandtab
+set autoindent
+
+" 显示下划线
+set cursorline
+
+
+" Vundle
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'git://github.com/scrooloose/nerdtree.git'
+call vundle#end()
+" Vundle end
+
+set autochdir
+let mapleader=","
+let NERDTreeChDirMode=2
+nnoremap &lt;leader&gt;f :NERDTree .&lt;CR&gt;
+nnoremap &lt;leader&gt;&lt;Tab&gt; &lt;C-w&gt;
+
+" 打开文件时定位到上次关闭的位置
+autocmd BufReadPost *
+\ if line("'\"")&gt;0&amp;&amp;line("'\"")&lt;=line("$") |
+\ exe "normal g'\"" |
+\ endif
+
+" 插入文件头
+autocmd BufNewFile *.py,*.sh, exec ":call SetTitle()"
+let $author_name = "abelx"
+let $author_email = "theabelx@163.com"
+
+func SetTitle()
+if &amp;filetype == 'sh'
+call setline(1,"\###################################################################")
+call append(line("."), "\# File Name: ".expand("%"))
+call append(line(".")+1, "\# Author: ".$author_name)
+call append(line(".")+2, "\# mail: ".$author_email)
+call append(line(".")+3, "\# Created Time: ".strftime("%c"))
+call append(line(".")+4, "\#=============================================================")
+call append(line(".")+5, "\#!/bin/bash")
+call append(line(".")+6, "")
+else
+call setline(1,"\###################################################################")
+call append(line("."), "\# File Name: ".expand("%"))
+call append(line(".")+1, "\# Author: ".$author_name)
+call append(line(".")+2, "\# mail: ".$author_email)
+call append(line(".")+3, "\# Created Time: ".strftime("%c"))
+call append(line(".")+4, "\#=============================================================")
+call append(line(".")+5, "\#!/usr/bin/python")
+call append(line(".")+6, "")
+endif
+endfunc
+" 插入文件头 end
+
+</code></pre>
+</div>
+
+<h2 id="常用命令">常用命令</h2>
+<ol>
+  <li>
+    <p>全文替换</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code> :%s/vivian/sky/g
+ :1,$s/vivian/sky/g
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>查找</p>
+
+    <p>/，n向后，N向前</p>
+  </li>
+  <li>
+    <p>粘贴时缩进的问题很烦</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code> :set paste #粘贴前
+ :set nopaste #粘贴后
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>显示特殊符号</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code> :set list
+ :set nolist
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>撤销 &amp; 取消撤销</p>
+
+    <p>u &amp; &lt;C-r&gt;</p>
+  </li>
+</ol>
+
+<h2 id="杂记">杂记</h2>
+<ol>
+  <li>hjkl是vim模式的精髓，要慢慢体会。</li>
+  <li><a href="http://easwy.com/blog/archives/advanced-vim-skills-basic-move-method/">一个讲vim的博客系列</a></li>
+</ol>
+
+
+</div>
+
+<div>
+	
+	<div class="tbc"></div>
+	
+</div>
+<script src="/js/main.js"></script>
+<div class="share">
+    <p>Share this post with: </p>
+<div class="social-share" data-initialized="true">
+    <a href="#" class="social-share-icon icon-weibo"></a>
+    <a href="#" class="social-share-icon icon-qq"></a>
+    <a href="#" class="social-share-icon icon-qzone"></a>
+    <a href="#" class="social-share-icon icon-wechat"></a>
+</div>
+<!-- share.css -->
+<link rel="stylesheet" href="/overtrue-share/dist/css/share.min.css">
+
+<!-- share.js -->
+<script src="/overtrue-share/dist/js/social-share.min.js"></script>
+</div>
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+        
+		<p><a class="link" href="/archive/">Archive</a> /
+		<a class="link" href="/category/">Category</a> / 
+		<a class="link" href="/tags/">Tags</a> / 
+		<a class="link" href="/about/">About</a>
+		<!-- <a class="link" href="/contact/">Contact</a>
+        -->
+        </p>
+
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="/">Abelx's Blog</a>
+		<br>
+
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="https://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+
+</foot>
+
+
+</foot>
+
+</html>

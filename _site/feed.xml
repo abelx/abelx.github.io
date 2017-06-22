@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 22 Jun 2017 15:37:42 +0800</pubDate>
-    <lastBuildDate>Thu, 22 Jun 2017 15:37:42 +0800</lastBuildDate>
+    <pubDate>Thu, 22 Jun 2017 17:04:02 +0800</pubDate>
+    <lastBuildDate>Thu, 22 Jun 2017 17:04:02 +0800</lastBuildDate>
     <generator>Jekyll v3.5.0</generator>
     
       <item>
@@ -102,6 +102,241 @@
         
         
         <category>web</category>
+        
+      </item>
+    
+      <item>
+        <title>vim的使用</title>
+        <description>&lt;h2 id=&quot;我的vimrc&quot;&gt;我的.vimrc&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set nu
+syntax on
+
+&quot; 自定义键映射，方便使用
+inoremap jk &amp;lt;Esc&amp;gt;
+inoremap vv &amp;lt;Esc&amp;gt;:w&amp;lt;Enter&amp;gt;
+nnoremap vv :w&amp;lt;Enter&amp;gt;
+inoremap qq &amp;lt;Esc&amp;gt;:wq&amp;lt;Enter&amp;gt;
+nnoremap qq :wq&amp;lt;Enter&amp;gt;
+
+set ts=4
+set expandtab
+set autoindent
+
+&quot; 显示下划线
+set cursorline
+
+
+&quot; Vundle
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'git://github.com/scrooloose/nerdtree.git'
+call vundle#end()
+&quot; Vundle end
+
+set autochdir
+let mapleader=&quot;,&quot;
+let NERDTreeChDirMode=2
+nnoremap &amp;lt;leader&amp;gt;f :NERDTree .&amp;lt;CR&amp;gt;
+nnoremap &amp;lt;leader&amp;gt;&amp;lt;Tab&amp;gt; &amp;lt;C-w&amp;gt;
+
+&quot; 打开文件时定位到上次关闭的位置
+autocmd BufReadPost *
+\ if line(&quot;'\&quot;&quot;)&amp;gt;0&amp;amp;&amp;amp;line(&quot;'\&quot;&quot;)&amp;lt;=line(&quot;$&quot;) |
+\ exe &quot;normal g'\&quot;&quot; |
+\ endif
+
+&quot; 插入文件头
+autocmd BufNewFile *.py,*.sh, exec &quot;:call SetTitle()&quot;
+let $author_name = &quot;abelx&quot;
+let $author_email = &quot;theabelx@163.com&quot;
+
+func SetTitle()
+if &amp;amp;filetype == 'sh'
+call setline(1,&quot;\###################################################################&quot;)
+call append(line(&quot;.&quot;), &quot;\# File Name: &quot;.expand(&quot;%&quot;))
+call append(line(&quot;.&quot;)+1, &quot;\# Author: &quot;.$author_name)
+call append(line(&quot;.&quot;)+2, &quot;\# mail: &quot;.$author_email)
+call append(line(&quot;.&quot;)+3, &quot;\# Created Time: &quot;.strftime(&quot;%c&quot;))
+call append(line(&quot;.&quot;)+4, &quot;\#=============================================================&quot;)
+call append(line(&quot;.&quot;)+5, &quot;\#!/bin/bash&quot;)
+call append(line(&quot;.&quot;)+6, &quot;&quot;)
+else
+call setline(1,&quot;\###################################################################&quot;)
+call append(line(&quot;.&quot;), &quot;\# File Name: &quot;.expand(&quot;%&quot;))
+call append(line(&quot;.&quot;)+1, &quot;\# Author: &quot;.$author_name)
+call append(line(&quot;.&quot;)+2, &quot;\# mail: &quot;.$author_email)
+call append(line(&quot;.&quot;)+3, &quot;\# Created Time: &quot;.strftime(&quot;%c&quot;))
+call append(line(&quot;.&quot;)+4, &quot;\#=============================================================&quot;)
+call append(line(&quot;.&quot;)+5, &quot;\#!/usr/bin/python&quot;)
+call append(line(&quot;.&quot;)+6, &quot;&quot;)
+endif
+endfunc
+&quot; 插入文件头 end
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;常用命令&quot;&gt;常用命令&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;全文替换&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; :%s/vivian/sky/g
+ :1,$s/vivian/sky/g
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;查找&lt;/p&gt;
+
+    &lt;p&gt;/，n向后，N向前&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;粘贴时缩进的问题很烦&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; :set paste #粘贴前
+ :set nopaste #粘贴后
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;显示特殊符号&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; :set list
+ :set nolist
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;撤销 &amp;amp; 取消撤销&lt;/p&gt;
+
+    &lt;p&gt;u &amp;amp; &amp;lt;C-r&amp;gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;杂记&quot;&gt;杂记&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;hjkl是vim模式的精髓，要慢慢体会。&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://easwy.com/blog/archives/advanced-vim-skills-basic-move-method/&quot;&gt;一个讲vim的博客系列&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+</description>
+        <pubDate>Thu, 22 Jun 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E5%B7%A5%E5%85%B7/vim%E7%9A%84%E4%BD%BF%E7%94%A8.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E5%B7%A5%E5%85%B7/vim%E7%9A%84%E4%BD%BF%E7%94%A8.html</guid>
+        
+        <category>vim</category>
+        
+        <category>linux</category>
+        
+        
+        <category>工具</category>
+        
+      </item>
+    
+      <item>
+        <title>shell脚本的写法</title>
+        <description>&lt;h2 id=&quot;变量&quot;&gt;变量&lt;/h2&gt;
+&lt;h3 id=&quot;用户定义变量&quot;&gt;用户定义变量&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var1=&quot;123&quot;
+echo $var1
+echo &quot;${var1}test&quot;
+var2=$var1
+$var2=$var1 #不对
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;注意&quot;&gt;注意&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;加不加括号都行，括号为了识别变量的边界&lt;/li&gt;
+  &lt;li&gt;变量作为左值不加$，作为右值一定要加&lt;/li&gt;
+  &lt;li&gt;赋值等号两边不能有空格&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;常用系统变量&quot;&gt;常用系统变量&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;变量&lt;/th&gt;
+      &lt;th&gt;含义&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;$#&lt;/td&gt;
+      &lt;td&gt;参数个数，不包括文件名本身&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;$0&lt;/td&gt;
+      &lt;td&gt;文件名&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;$1&lt;/td&gt;
+      &lt;td&gt;第一个参数，以此类推&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;数组&quot;&gt;数组&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;arr1=(1 2 3) #初始化
+arr1[0]=1 #赋值，下标范围没有限制
+echo ${arr1[1]} #取值
+echo ${#arr1[*]} #元素个数
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;注释&quot;&gt;注释&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 单行注释
+
+&quot;
+多行
+注释
+&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;运算符&quot;&gt;运算符&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell-basic-operators.html&quot;&gt;菜鸟教程运算符&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;括号&quot;&gt;括号&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/tttyd/article/details/11742241&quot;&gt;关于shell中各种括号的解释&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;方括号右边和其他字符之间一定要留空格&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if [ 1 -gt 1 ]
+then
+  echo 1
+fi
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;相关资料&quot;&gt;相关资料&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;shell菜鸟教程&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 22 Jun 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E8%AF%AD%E8%A8%80/shell%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E8%AF%AD%E8%A8%80/shell%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95.html</guid>
+        
+        <category>shell</category>
+        
+        <category>linux</category>
+        
+        
+        <category>语言</category>
         
       </item>
     

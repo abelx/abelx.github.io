@@ -6,8 +6,9 @@ then
     echo "need title."
     exit
 fi
+title=$1
 date=`date "+%Y-%m-%d"`
-filename=$date"-"$1".md"
+filename=$date"-"$title".md"
 
 echo -e "---\n \
 \n \
