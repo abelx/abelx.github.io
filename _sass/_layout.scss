@@ -45,14 +45,13 @@
 .post-header {
     background-color: #79afe8;
     margin-bottom: $spacing-unit;
-    border-bottom: 1px solid #eee;
 
 }
 
 .post-header1 {
     border-bottom: 1px solid #eee;
-
 }
+
 .post-title {
     margin-top: 50px;
     margin-bottom: 30px;
@@ -124,13 +123,17 @@
 
 .contact-title{
    /* margin-top: 30px;*/
-    font-size: 42px;
+    font-size: 35px;
     color: #fff;
+    padding-top: 7px;
 }
 
-.contact-subtitle{
-    color: #b6b6b6;
-    margin-bottom: 30px;
+.contact-subtitle p{
+
+    color: #847f7f; 
+    margin: 0;
+    padding-bottom: 10px;
+    font-size: 17px;
 }
 
 #gpg-fieldset {
