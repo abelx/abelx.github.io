@@ -6,9 +6,121 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 23 Jun 2017 16:26:35 +0800</pubDate>
-    <lastBuildDate>Fri, 23 Jun 2017 16:26:35 +0800</lastBuildDate>
+    <pubDate>Fri, 07 Jul 2017 10:07:37 +0800</pubDate>
+    <lastBuildDate>Fri, 07 Jul 2017 10:07:37 +0800</lastBuildDate>
     <generator>Jekyll v3.5.0</generator>
+    
+      <item>
+        <title>周报</title>
+        <description>&lt;p&gt;说好的每周四的周报，第一周就给忘了…[摊手]，好了，开始第一个周报。&lt;/p&gt;
+
+&lt;p&gt;周二晚上，当我走出NLP的考场的时候，意味着可能我学生生涯的考试已经就此结束了。从此以后，可能就告别了所谓的上课，作业，考勤，考试和学分之类的东西，想想还有点小激动。于是，最近辛勤复习考试的奖励[可能大部分时间是在看剧，顺便复习]，周三周四好好休息了一下。&lt;/p&gt;
+
+&lt;p&gt;下周就要离开雁栖湖了，要回到市里了还是很开心的。不过，要离开这个依山傍水的校园，还有安静舒适的小单间多少还是有点舍不得。这里跟以前的清水河比，偏僻程度有过之而无不及，没有都市的繁华，是一个学习科研的好地方。我没去过欧美的高校，不过美国的大学不是一般都在小镇上吗？会不会跟这里差不多啊，以后有机会一定要去看看。这一年里，由于种种原因，没怎么好好的在这里待着，所以，接下来一周多的时间我希望能慢慢的享受一下在这里的最后的学习生活。坐在窗户旁边，每天都能听到外边有拉着箱子离去的声音，他们可能就要永远离开这个校园了，不知道他们此刻的心情如何呢？&lt;/p&gt;
+
+&lt;h2 id=&quot;上周总结&quot;&gt;上周总结&lt;/h2&gt;
+&lt;p&gt;除了复习之外，之前两个周主要在做NLP的大作业，就是实现一个英文单词拼写纠错。这个题目目看起来挺简单的，我在网上找到了一个30行Python代码实现的拼写纠错，非常简洁。但是毕竟是最后一个大作业，我还是想好好做一下，所以找了两篇论文，看一下有没有更好的方法。现在实现的版本基本是宗成庆老师的讲义上边的方法，采用D氏编辑距离作为单词距离的度量，把词典组织成一个trie树，查找候选的过程采用剪枝策略加速。所以，基本的功能已经实现了，接下来要通过找到的两篇论文，一方面尽量做优化改进，另一方面了解更多有关拼写纠错的思路和方法，作为学习。&lt;/p&gt;
+
+&lt;h2 id=&quot;下周计划&quot;&gt;下周计划&lt;/h2&gt;
+&lt;h3 id=&quot;拼写纠错&quot;&gt;拼写纠错&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;把论文剩下的部分读完，改进程序。&lt;/li&gt;
+  &lt;li&gt;对论文中的方法和思路进行记录总结。&lt;/li&gt;
+  &lt;li&gt;完成大作业的文档，同时结合论文的总结写一篇以拼写纠错为主题的博客。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;程序分析的报告&quot;&gt;程序分析的报告&lt;/h3&gt;
+&lt;p&gt;夏季学期的课程作业，应该比较水。题目就是选数据流分析、过程间分析、字符串分析、指针分析、符号执行等其中任意一个主题，读论文，写总结。我还是比较感兴趣，抓紧时间了解一下。这个12号之前要交，所以先写这个。&lt;/p&gt;
+</description>
+        <pubDate>Thu, 06 Jul 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E5%91%A8%E6%8A%A5/%E5%91%A8%E6%8A%A5.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E5%91%A8%E6%8A%A5/%E5%91%A8%E6%8A%A5.html</guid>
+        
+        <category>周报</category>
+        
+        
+        <category>周报</category>
+        
+      </item>
+    
+      <item>
+        <title>Python高级写作技巧</title>
+        <description>&lt;h3 id=&quot;lambda&quot;&gt;lambda&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; foo = [1,2,3]
+&amp;gt;&amp;gt;&amp;gt; filter(lambda x: x % 3 == 0, foo)
+[3]
+&amp;gt;&amp;gt;&amp;gt; print map(lambda x: x + 1, foo)
+[2, 3, 4]
+&amp;gt;&amp;gt;&amp;gt; print reduce(lambda x, y: x + y, foo)
+6
+&amp;gt;&amp;gt;&amp;gt; print reduce(lambda x, y: x - y, foo)
+-4	
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;reduce、map和filter都接受一个函数一个函数，一个list，reduce还接受第三个参数作为初始值。&lt;br /&gt;
+lambda并不会带来程序运行效率的提高，只会使代码更简洁。&lt;/p&gt;
+&lt;h3 id=&quot;list2string&quot;&gt;list2string&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;s = &quot;test&quot;
+l = list(s)
+new_s = ''.join(l)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;排序&quot;&gt;排序&lt;/h3&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;l = [(1,2),(2,3),(3,4)]#dict.items()返回这种结构
+sorted(l, key=lambda e:e[1], reverse=True)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;求前n大小值&quot;&gt;求前n大/小值&lt;/h3&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import heapq
+l = [1,2,3]
+heapq.nlargest(n, l)
+heapq.nsmallest(n, l)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+</description>
+        <pubDate>Tue, 27 Jun 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E8%AF%AD%E8%A8%80/Python%E9%AB%98%E7%BA%A7%E5%86%99%E4%BD%9C%E6%8A%80%E5%B7%A7.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E8%AF%AD%E8%A8%80/Python%E9%AB%98%E7%BA%A7%E5%86%99%E4%BD%9C%E6%8A%80%E5%B7%A7.html</guid>
+        
+        <category>Python</category>
+        
+        <category>笔记</category>
+        
+        
+        <category>语言</category>
+        
+      </item>
+    
+      <item>
+        <title>谈谈软件包管理器</title>
+        <description>&lt;p&gt;今天在Mac上用Homebrew的时候突然想到一个问题：Homebrew是个什么东西？为什么可以用他来安装软件？&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://brew.sh/index_zh-cn.html&quot;&gt;Homebrew&lt;/a&gt;就是一个软件包管理器，我感觉他之于osx就相当于dpkg+apt-get之于Linux Debian。&lt;/p&gt;
+
+&lt;p&gt;Linux不同的发行版有不同的软件包管理器，主要的两个阵营是.deb和.rpm，他们的包管理器分别是dpkg+apt-get和rpm+yum，关于软件包管理器以及dpkg、apt-get、rpm、yum这四个工具的关系可以参考这三篇资料，都比较简单：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cnblogs.com/purgiant/p/3515878.html&quot;&gt;博客一&lt;/a&gt;，讲的非常简洁清楚，而且有比较详细的命令列表，感觉可以作为apt-get等命令使用的辅助文档随时查阅。&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://itbilu.com/linux/management/NJ8WlHCmM.html&quot;&gt;博客二&lt;/a&gt;，这篇讲的相对系统一点。&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://askubuntu.com/questions/309113/what-is-the-difference-between-dpkg-and-aptitude-apt-get&quot;&gt;这是一个英文问答社区的答案&lt;/a&gt;，高票答案以时间线的形式模拟了从包管理这个概念产生到高级包管理器产生这个过程，更有利于理解他们的内在关系。同时，我感觉他这种思考和回答问题的方式也是比较有启发意义的。&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sat, 24 Jun 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/linux/%E8%B0%88%E8%B0%88%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8.html</link>
+        <guid isPermaLink="true">http://localhost:4000/linux/%E8%B0%88%E8%B0%88%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8.html</guid>
+        
+        <category>linux</category>
+        
+        
+        <category>Linux</category>
+        
+      </item>
     
       <item>
         <title>浅谈Jekyll</title>

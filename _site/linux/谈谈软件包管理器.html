@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/linux/%E8%B0%88%E8%B0%88%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8.html">
+  <link rel="alternate" type="application/rss+xml" title="Abelx's Blog" href="http://localhost:4000/feed.xml">
+
+<!-- Google font -->
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto Sans">
+
+<!-- font awesome -->
+
+<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="https://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+</head>
+
+
+  
+    <script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    
+  ga('create', 'UA-75034651-1', 'auto');
+  ga('send', 'pageview');
+    
+	</script>
+
+
+  
+
+  
+
+  </head>
+
+  <body>
+
+
+  <div class="wrapper">
+          <header class="post-header1">
+       <title>谈谈软件包管理器</title>
+       <meta name="description" content="谈谈软件包管理器 from Abelx's blog" />
+       <center><div class="post-title" itemprop="name headline">谈谈软件包管理器</div>
+
+		<div class="post-meta"><i class="fa fa-calendar-o"></i> <time datetime="24 Jun 2017" itemprop="datePublished">Jun 24 2017</time>
+
+		&nbsp;&nbsp;•&nbsp;&nbsp;<i class="fa fa-user-secret"></i> <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">abelx</span>
+        
+		<br>
+		<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-pulse"></i></span>˚C</span>
+	</div>
+
+        
+        <div class="post-tags">
+        
+		<a class="post-tags-item" href="http://localhost:4000/tags/">linux</a>
+        
+	</div>
+    </center>
+    
+</header>
+<br />
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post-content">
+    <center>
+	
+	<p>Linux接触了很久了，很早就知道了在Ubuntu上安装软件用apt-get命令，在Centos上安装软件用yum命令，也听说过deb包管理和rpm包管理，但是一直也没弄懂他们的关系，这里谈谈Linux的软件包管理器。</p>
+	
+    </center>
+	<h2>Directory</h2>
+</div>
+
+<div id="category"></div>
+
+<div class="post-content" itemprop="articleBody">
+    <p>今天在Mac上用Homebrew的时候突然想到一个问题：Homebrew是个什么东西？为什么可以用他来安装软件？</p>
+
+<p><a href="https://brew.sh/index_zh-cn.html">Homebrew</a>就是一个软件包管理器，我感觉他之于osx就相当于dpkg+apt-get之于Linux Debian。</p>
+
+<p>Linux不同的发行版有不同的软件包管理器，主要的两个阵营是.deb和.rpm，他们的包管理器分别是dpkg+apt-get和rpm+yum，关于软件包管理器以及dpkg、apt-get、rpm、yum这四个工具的关系可以参考这三篇资料，都比较简单：</p>
+
+<ul>
+  <li><a href="http://www.cnblogs.com/purgiant/p/3515878.html">博客一</a>，讲的非常简洁清楚，而且有比较详细的命令列表，感觉可以作为apt-get等命令使用的辅助文档随时查阅。</li>
+  <li><a href="https://itbilu.com/linux/management/NJ8WlHCmM.html">博客二</a>，这篇讲的相对系统一点。</li>
+  <li><a href="https://askubuntu.com/questions/309113/what-is-the-difference-between-dpkg-and-aptitude-apt-get">这是一个英文问答社区的答案</a>，高票答案以时间线的形式模拟了从包管理这个概念产生到高级包管理器产生这个过程，更有利于理解他们的内在关系。同时，我感觉他这种思考和回答问题的方式也是比较有启发意义的。</li>
+</ul>
+
+
+</div>
+
+<div>
+	
+	<div class="eof"></div>
+	
+</div>
+<script src="/js/main.js"></script>
+<div class="share">
+    <p>Share this post with: </p>
+<div class="social-share" data-initialized="true">
+    <a href="#" class="social-share-icon icon-weibo"></a>
+    <a href="#" class="social-share-icon icon-qq"></a>
+    <a href="#" class="social-share-icon icon-qzone"></a>
+    <a href="#" class="social-share-icon icon-wechat"></a>
+</div>
+<!-- share.css -->
+<link rel="stylesheet" href="/overtrue-share/dist/css/share.min.css">
+
+<!-- share.js -->
+<script src="/overtrue-share/dist/js/social-share.min.js"></script>
+</div>
+
+
+</article>
+
+  </div>
+
+</body>
+
+<foot>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <center>
+       <div style="font-size:17px;"> 
+		<p><a class="link" href="/archive/">Archive</a> <strong style="font-size:20px;">·</strong>
+		<a class="link" href="/category/">Category</a> <strong style="font-size:20px;">·</strong>
+		<a class="link" href="/tags/">Tags</a> <strong style="font-size:20px;">·</strong>
+		<a class="link" href="/about/">About</a>
+		</div><!-- <a class="link" href="/contact/">Contact</a>
+        -->
+        </p>
+        <div style="font-size:15px; padding=20px" >
+        <span><script>document.write(new Date().getFullYear());</script></span>
+        <span>&copy;</span>
+        
+		<a class="link" href="/">Abelx's Blog</a>
+		<br>
+        <span>Powered by <a href="http://jekyllrb.com/">Jekyll</a></span>
+</div>
+    </center>
+    
+  </div>
+
+</footer>
+
+    <foot>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Derictory -->
+
+  <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="https://yandex.st/highlightjs/6.2/highlight.min.js"></script>
+
+<!-- Hit analytics -->
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Directory -->
+
+
+</foot>
+
+
+</foot>
+
+</html>
