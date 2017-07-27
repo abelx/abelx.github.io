@@ -6,9 +6,157 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 07 Jul 2017 10:07:37 +0800</pubDate>
-    <lastBuildDate>Fri, 07 Jul 2017 10:07:37 +0800</lastBuildDate>
+    <pubDate>Wed, 26 Jul 2017 22:49:00 +0800</pubDate>
+    <lastBuildDate>Wed, 26 Jul 2017 22:49:00 +0800</lastBuildDate>
     <generator>Jekyll v3.5.0</generator>
+    
+      <item>
+        <title>从Python2麻烦的编码说起</title>
+        <description>&lt;h2 id=&quot;关于编码&quot;&gt;关于编码&lt;/h2&gt;
+&lt;p&gt;编码应该是通信领域的研究内容。因为计算机能处理的只有二进制数值型的数据，所以信息要编码成二进制表示才能进行处理、传输和存储。&lt;/p&gt;
+&lt;h3 id=&quot;ascii码gbk和unicode&quot;&gt;ASCII码，GBK和Unicode&lt;/h3&gt;
+&lt;p&gt;最简单常见的字符编码应该就是ASCII码，它把英文26个字母的大小写和一些特殊符号编码在一个字节里，基本上可以表示英文中的所有符号了。但是一个字节只有八个bit，只能表示256个符号，像中文，日语，汉语等语言的文字远远不止256个，想要表示中文就需要一种新的编码。因此，GBK编码应运而生。关于GBK和GB2312等的区别和联系这里不谈，统一称为GBK编码。中国的一些学者和机构意识到为了方便计算机处理中文需要提出一种统一的编码标准GBK，它用两个字节编码了几乎全部的中文文字符号，同时也保留了ASCII码的符号。但是GBK是我们自己制定的编码标准，并不是一种国际标准。如果汉语有一套编码，日语有一套编码，阿拉伯语也有一套编码，那不就乱套了吗，也加重了计算机处理文本的复杂度。所以，为了实际和平，Unicode站了出来。Unicode有两字节，四字节等等，这应该和他需要编码的信息量有关系。可以仅仅把Unicode的码字简单的当成是一个整数，一个符号对应一个整数。他也保留了ASCII码的全部码字，而且对应的数值都完全一致，ASCII码要转换成Unicode只需要拷贝低字节高字节补零就行了。现在，世界看上去非常美好了，所有的文字符号都能在Unicode中占有一席之地，对一篇文档编码也只需要查一下编码表，然后分配固定的空间（2or3字节）填上值就行了。但是，坏就坏在了这个“固定”上了。本来一个字节就可以编码的英文字母，现在为了迁就其他语言的文字符号也要用四个字节来表示，这对于英文为主的文档大大增加了存储空间的开销，也增加了传输的复杂度。所以，需要一种新的编码方式把这些数值化的信息再进行编码，使其既方便计算机处理又相对节省存储空间，这就是UTF-8，UTF-16等编码的历史使命。为了达到压缩目的，显然需要一种变长的编码方式，像霍夫曼编码等。具体怎么进行编码才能在保存信息量又尽可能的压缩存储空间就是编码理论需要研究的了。&lt;/p&gt;
+
+&lt;p&gt;既然UTF-8才是顺应历史发展的潮流，而且国际通用，那么在中文编码中为什么GBK还是如此常见呢？思考一个问题，UTF-8解决的主要问题是什么？节省存储空间。那么如果有一个编码能完美的编码中英文文档又更加节省空间，那么你要不要用呢？GBK就可以做到，因为它没有肩负着“编码全世界”的重担，而且它是专门针对中文的编码，所以他能以一种更节省空间的方式编码中文。比如UTF-8一个中文字符需要三个字节，而GBK只需要两个字节。这种提高在TB甚至PB级的数据量上所能节省的存储空间是非常客观的。我想，这也是我在实习的时候处理的数据都是GBK编码的原因吧。&lt;/p&gt;
+
+&lt;h2 id=&quot;python2的编码问题&quot;&gt;Python2的编码问题&lt;/h2&gt;
+&lt;p&gt;听说Python3已经把烦人的编码问题给解决了，不过我现在还坚持的Python2战线，就针对Python2的编码问题谈谈我的理解（以后简称python）。&lt;/p&gt;
+
+&lt;h3 id=&quot;直接看本质&quot;&gt;直接看本质&lt;/h3&gt;
+&lt;p&gt;python中对于一个字符串的表示，不论是什么语言的符号，总的来说有两种方式：字符串对象str和Unicode对象。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; s = &quot;test&quot;
+&amp;gt;&amp;gt;&amp;gt; type(s)
+&amp;lt;type 'str'&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; s = u&quot;test&quot;
+&amp;gt;&amp;gt;&amp;gt; type(s)
+&amp;lt;type 'unicode'&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;字符串对象str&lt;/p&gt;
+
+    &lt;p&gt;相当于C++里的string对象，对象维护了一个字节数组，里边存储的就是相应字符串用某一个编码方式编码的结果。可以是GBK，UTF-8等等。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Unicode对象&lt;/p&gt;
+
+    &lt;p&gt;所有str对象都可以调用decode方法解码成Unicode对象，Unicode对象也可以调用decode编码成str对象，这两个过程中都是要指定编码类型的。解码的结果是否正确取决于指定的编码类型是否正确。相同的字符串的Unicode对象的表示是相同的也是唯一的，但是在不同的编码方式下得到的str对象的表示是不同的：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; s = [u&quot;测试&quot;, u&quot;测试&quot;.encode(&quot;utf8&quot;), u&quot;测试&quot;.encode(&quot;gbk&quot;)]
+&amp;gt;&amp;gt;&amp;gt; print s
+[u'\u6d4b\u8bd5', '\xe6\xb5\x8b\xe8\xaf\x95', '\xb2\xe2\xca\xd4']
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;p&gt;从上边的输出结果也可以看出来gbk编码中文的长度确实要比utf8短。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;关于str和Unicode对象的具体实现这里留个坑以后在填，最近也在看Python源码分析，看到这部分了再回来补上。&lt;/p&gt;
+
+&lt;h3 id=&quot;需要设置编码的地方&quot;&gt;需要设置编码的地方&lt;/h3&gt;
+
+&lt;p&gt;一个py代码文件有三个编码需要设置：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;文件编码&lt;/p&gt;
+
+    &lt;p&gt;所有的文本文件都是有编码的，python代码文件也是一个文本文件，而且里边如果有中文出现，不管是在注释还是代码中，那么这个文件就是包含中英文字符的文本文件。所以，要指定编码方式来保存代码文件。在Windows中使用IDE或者文本编辑器保存文件会有相应的设置选项来设置文件编码，在Linux上文件保存的编码是由终端的编码决定的。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;文件头编码声明&lt;/p&gt;
+
+    &lt;p&gt;就是在py代码文件头声明的编码，声明的方式有很多种，列举如下：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# coding=utf8
+# coding: gbk
+# -*- coding:utf-8 -*-
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;这个编码的我觉得只要是写给python解释器看的，解释器需要知道文件采用的编码才能正确的处理文件，才能正确的读取中文字符。我看到有人总结它的作用：1.声明源文件中将出现非ascii编码，通常也就是中文。2.在高级的IDE中，IDE会将你的文件格式保存成你指定编码格式。3.决定源码中类似于u’哈’这类声明的，解码是选择的解码格式。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;解释器默认编码&lt;/p&gt;
+
+    &lt;p&gt;其实经常需要设置的是前两个，解释器默认编码我所知道的只有在做编码转换的时候会用到，不过这也是出问题的时候最让人摸不到头脑的地方。
+ 我们已经知道，一个Unicode对象可以调用encode方法编码成任一种编码的字节码str对象。那么对一个str对象调用encode会进行什么操作呢？会先对其进行decode操作，decode的编码可以通过&lt;code class=&quot;highlighter-rouge&quot;&gt;sys.getdefaultencoding()&lt;/code&gt;得到，默认是ascii。这就是第二句代码报错的原因。可以通过&lt;code class=&quot;highlighter-rouge&quot;&gt;sys.setdefaultencoding()&lt;/code&gt;或者显示的指定编码decode再encode来解决这个问题。&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; u&quot;测试&quot;.encode(&quot;utf8&quot;)
+'\xe6\xb5\x8b\xe8\xaf\x95'
+&amp;gt;&amp;gt;&amp;gt; &quot;测试&quot;.encode(&quot;utf8&quot;)
+Traceback (most recent call last):
+File &quot;&amp;lt;stdin&amp;gt;&quot;, line 1, in &amp;lt;module&amp;gt;
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xe6 in 	position 0: ordinal not in range(128)
+&amp;gt;&amp;gt;&amp;gt; sys.setdefaultencoding(&quot;utf8&quot;)
+&amp;gt;&amp;gt;&amp;gt; &quot;测试&quot;.encode(&quot;utf8&quot;)
+'\xe6\xb5\x8b\xe8\xaf\x95'
+&amp;gt;&amp;gt;&amp;gt; &quot;测试&quot;.decode(&quot;utf8&quot;).encode(&quot;utf8&quot;)
+'\xe6\xb5\x8b\xe8\xaf\x95'
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;print-乱码的原因&quot;&gt;print 乱码的原因&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;print输出str对象，会把字节数组的内容直接发送的终端输出，所以如果终端编码和字符串的编码不一致的话会出现乱码。&lt;/li&gt;
+  &lt;li&gt;print输出Unicode对象，会先调用encode按照终端的编码进行编码，然后发送到终端输出，只要Unicode编码是对的就不会乱码&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;所以，用Python操作字符串最好用Unicode。&lt;/p&gt;
+
+&lt;h3 id=&quot;文件读写&quot;&gt;文件读写&lt;/h3&gt;
+&lt;p&gt;文本文件本身是有编码的，直接通过open+read读进来的字符串就保存在一个str对象里，编码和文本文件本身的编码是一致的，而不一定跟py代码文件的编码一致。写入文件的时候也是直接把str对象的字节码写入文件，这个地方也是比较迷惑人的。所以在进行文本文件的读写操作时，最好用codec库提供的接口打开文件：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import codecs
+f = codecs.open(&quot;demo.txt&quot;, 'r', 'utf-8')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;打开文件的时候要指定编码方式，read操作读出的直接就是Unicode对象，write写入Unicode对象也会直接encode成open时声明的编码。&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 23 Jul 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E8%AF%AD%E8%A8%80/%E4%BB%8EPython2%E9%BA%BB%E7%83%A6%E7%9A%84%E7%BC%96%E7%A0%81%E8%AF%B4%E8%B5%B7.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E8%AF%AD%E8%A8%80/%E4%BB%8EPython2%E9%BA%BB%E7%83%A6%E7%9A%84%E7%BC%96%E7%A0%81%E8%AF%B4%E8%B5%B7.html</guid>
+        
+        <category>Python</category>
+        
+        
+        <category>语言</category>
+        
+      </item>
+    
+      <item>
+        <title>朴素贝叶斯在文本分类中的常用模型</title>
+        <description>&lt;p&gt;朴素贝叶斯在文本分类中的常用模型主要有两种：多项式模型和伯努利模型&lt;/p&gt;
+
+&lt;h2 id=&quot;概率基础&quot;&gt;概率基础&lt;/h2&gt;
+&lt;h3 id=&quot;朴素贝叶斯&quot;&gt;朴素贝叶斯&lt;/h3&gt;
+&lt;h3 id=&quot;伯努利分布&quot;&gt;伯努利分布&lt;/h3&gt;
+&lt;p&gt;伯努利分布(Bernoulli distribution)又称两点分布，随机变量X的取值只有两个。
+&lt;script type=&quot;math/tex&quot;&gt;P\{X=0\}=p,P\{X=1\}=1-p&lt;/script&gt;
+伯努利实验是只有两种可能结果的单次随机实验。&lt;/p&gt;
+&lt;h3 id=&quot;二项分布&quot;&gt;二项分布&lt;/h3&gt;
+&lt;p&gt;二项分布(Binomial distribution)是n重伯努利试验成功次数的离散概率分布。
+&lt;script type=&quot;math/tex&quot;&gt;P\{X=k\}=C_n^kp^k(1-p)^{n-k}, k=0,1,2...,n&lt;/script&gt;&lt;/p&gt;
+&lt;h3 id=&quot;多项式分布&quot;&gt;多项式分布&lt;/h3&gt;
+&lt;p&gt;多项式分布(Multinomial Distribution)是二项式分布的推广。二项式做n次伯努利实验，规定了每次试验的结果只有两个，如果现在还是做n次试验，只不过每次试验的结果可以有多m个，且m个结果发生的概率互斥且和为1，则发生其中一个结果X次的概率就是多项式分布。&lt;/p&gt;
+&lt;h2 id=&quot;伯努利模型&quot;&gt;伯努利模型&lt;/h2&gt;
+
+&lt;h2 id=&quot;多项式模型&quot;&gt;多项式模型&lt;/h2&gt;
+
+</description>
+        <pubDate>Wed, 19 Jul 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%9C%A8%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9E%8B.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%9C%A8%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9E%8B.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>周报</title>
@@ -82,6 +230,13 @@ heapq.nsmallest(n, l)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
+&lt;h3 id=&quot;删除list的元素&quot;&gt;删除list的元素&lt;/h3&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;l = [1,2,3,1,2,3,1]
+del[l[-1]] #法1，删掉最后一个元素
+l.remove(l[-1]) #法2，删掉第一个值为l[-1]（1）的元素
+l.pop() #相当于出栈，删除最后一个元素
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 </description>
         <pubDate>Tue, 27 Jun 2017 00:00:00 +0800</pubDate>
         <link>http://localhost:4000/%E8%AF%AD%E8%A8%80/Python%E9%AB%98%E7%BA%A7%E5%86%99%E4%BD%9C%E6%8A%80%E5%B7%A7.html</link>
