@@ -6,9 +6,367 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 26 Jul 2017 22:49:00 +0800</pubDate>
-    <lastBuildDate>Wed, 26 Jul 2017 22:49:00 +0800</lastBuildDate>
+    <pubDate>Fri, 22 Sep 2017 09:56:08 +0800</pubDate>
+    <lastBuildDate>Fri, 22 Sep 2017 09:56:08 +0800</lastBuildDate>
     <generator>Jekyll v3.5.0</generator>
+    
+      <item>
+        <title>语言模型</title>
+        <description>&lt;p&gt;总结一下NLP中的语言模型。&lt;/p&gt;
+&lt;h2 id=&quot;基本模型n-gram&quot;&gt;基本模型n-gram&lt;/h2&gt;
+&lt;p&gt;语言模型其实就是看一句话是不是正常人说出来的。语言模型形式化的描述就是给定一个字符串，看它是自然语言的概率。&lt;/p&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;s=w_1w_2...w_m&lt;/script&gt;,
+s表示句子，&lt;script type=&quot;math/tex&quot;&gt;w_i&lt;/script&gt;表示词。
+&lt;script type=&quot;math/tex&quot;&gt;p(s)=p(w_1w_2...w_m)=p(w_1)p(w_2|w_1)p(w_3|w_1w_2)...&lt;/script&gt;
+句子的概率等于所有词的联合概率。&lt;/p&gt;
+&lt;h3 id=&quot;问题&quot;&gt;问题&lt;/h3&gt;
+&lt;p&gt;第k词依赖前边k-1词，参数过多。&lt;/p&gt;
+&lt;h3 id=&quot;解决办法&quot;&gt;解决办法&lt;/h3&gt;
+&lt;p&gt;减少依赖词数，假设第k词仅仅依赖前边n-1词，得到的模型就是n-gram模型。&lt;/p&gt;
+
+&lt;h3 id=&quot;应用&quot;&gt;应用&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;输入法，给定拼音串，有多个可能的汉字串，套模型，概率最大的句子就是结果。&lt;/li&gt;
+  &lt;li&gt;汉语分词，给定汉字串，有多个可能的分词结果，求使句子概率最大的分词结果。&lt;/li&gt;
+  &lt;li&gt;语音识别，&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;参数估计&quot;&gt;参数估计&lt;/h3&gt;
+&lt;p&gt;最大似然。&lt;/p&gt;
+
+&lt;p&gt;比如2-gram，估计&lt;script type=&quot;math/tex&quot;&gt;p(w_i\|w_{i-1})&lt;/script&gt;，分子是&lt;script type=&quot;math/tex&quot;&gt;\#(w_{i-1}, w_i)&lt;/script&gt;(表示这个二元组出现的次数)，分母是&lt;script type=&quot;math/tex&quot;&gt;\sum_k\#(w_{i-1}, w_k)&lt;/script&gt;(表示所有以&lt;script type=&quot;math/tex&quot;&gt;w_{i-1}&lt;/script&gt;开头的二元组出现的次数)。&lt;/p&gt;
+
+&lt;p&gt;数据稀疏引起零概率问题：数据平滑。&lt;/p&gt;
+
+&lt;h4 id=&quot;数据平滑&quot;&gt;数据平滑&lt;/h4&gt;
+&lt;p&gt;基本思想：调整最大似然估计的结果，使得零概率增大，非零概率减小，劫富济贫。&lt;/p&gt;
+
+&lt;p&gt;基本目标：测试样本的语言模型困惑度越小越好。&lt;/p&gt;
+
+&lt;p&gt;基本约束： 概率和为1.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;加一法&lt;/p&gt;
+
+    &lt;p&gt;分子加1，分母加N，N是词典大小&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Good-Turing法&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;katz后退法&lt;/p&gt;
+
+    &lt;p&gt;如果N元的概略找不到，那就用N-1元的概率乘上一个权重来模拟。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;语言模型的自适应&quot;&gt;语言模型的自适应&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;基于缓存的语言模型&lt;/p&gt;
+
+    &lt;p&gt;在文本中刚刚出现过得词在后边的句子中再次出现的肯能行往往较大。概率通过对n-gram线性插值求得。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;基于混合方法的语言模型&lt;/li&gt;
+  &lt;li&gt;基于最大熵的语言模型&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;神经网络语言模型&quot;&gt;神经网络语言模型&lt;/h2&gt;
+&lt;h3 id=&quot;n-gram模型的问题&quot;&gt;n-gram模型的问题&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;数据稀疏，语料不足使得无法训练高阶模型，无法建模更远的关系。&lt;/li&gt;
+  &lt;li&gt;无法建模出词之间的相似度。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;word-embedding词向量&quot;&gt;word embedding(词向量)&lt;/h3&gt;
+&lt;p&gt;传统表示方法是词典+one-hot表示，分布式表示是把每个词表示成一个低维向量。&lt;/p&gt;
+
+&lt;h3 id=&quot;词向量的训练&quot;&gt;词向量的训练&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;http://licstar.net/archives/328&quot;&gt;一篇讲词向量的非常好的博文&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;到目前为止我了解到的所有训练方法都是在训练语言模型的同时，顺便得到词向量的。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;通过Bengio的模型简单说明一下原理。&lt;/p&gt;
+
+&lt;p&gt;Bengio 用了一个三层的神经网络来构建语言模型，如下图：
+&lt;img src=&quot;/img/bengio.png&quot; alt=&quot;img-w0&quot; /&gt;
+这个模型同样是一个 n-gram 语言模型，他的目标是计算&lt;script type=&quot;math/tex&quot;&gt;p(w_j|w_{j-n+1}w_{j-n+2}...w_{j-1})&lt;/script&gt;。所以，输入是前n-1个词向量，输入神经元数是(n-1)*m（m是词向量的维度），输出神经元数是|V|，|V|表示词汇表大小，每个输出神经元的输出就是他所代表的单词在当前上下文后出现的概率&lt;script type=&quot;math/tex&quot;&gt;p(w_j|w_{j-n+1}w_{j-n+2}...w_{j-1})&lt;/script&gt;。&lt;/p&gt;
+
+&lt;p&gt;用随机梯度下降法把这个模型优化出来就可以了。需要注意的是，一般神经网络的输入层只是一个输入值，而在这里，输入层的向量也是参数也是需要优化的。优化结束之后，词向量有了，语言模型也有了。&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 22 Sep 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/nlp/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.html</link>
+        <guid isPermaLink="true">http://localhost:4000/nlp/%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B.html</guid>
+        
+        <category>NLP</category>
+        
+        
+        <category>NLP</category>
+        
+      </item>
+    
+      <item>
+        <title>numpy笔记</title>
+        <description>&lt;p&gt;numpy是一个python中提供矩阵表示和矩阵运算的“基础设施”，scipy可以认为是基于numpy之上提供了更多的操作。而numpy本身是仅支持CPU的，所以要使得运算在GPU上执行要用到TensorFlow，PyTorch等框架。这些框架提供的功能我认为主要有两个：1.GPU上的并行高速矩阵运算；2.自动求导。&lt;/p&gt;
+
+&lt;p&gt;这里主要就记录一下学习过程中遇到的numpy的用法，不定期更新。关于TensorFlow的用法会再写一个博客。&lt;/p&gt;
+&lt;h2 id=&quot;求均值&quot;&gt;求均值&lt;/h2&gt;
+&lt;p&gt;numpy.mean&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#生成10维的元素是0-1随机向量
+a = np.random.randint(0, 2, 10)
+b = np.random.randint(0, 2, 10)
+
+#求均值
+np.mean(a)
+#用于求准确率
+np.mean(a == b)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;求最小值的index&quot;&gt;求最小值的index&lt;/h2&gt;
+&lt;p&gt;numpy.argmin&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 如果最小值有多个，返回最小的index
+# axis如果不设置，把矩阵平铺成一维数组，返回在一维数组中的index
+# 设置axis的意思是在axis这个轴上求最小index，这个轴就变成了一个数，这个轴也就没了。比如a.shape==(2，3，4)
+a.argmin(axis=0)
+# 返回结果的shape是(3, 4)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;矩阵减法&quot;&gt;矩阵减法&lt;/h2&gt;
+
+&lt;p&gt;加减乘除法同理&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 对于a这种矩阵可以减的矩阵的shape只能是下边几种，规律很简单
+a = np.random.randint(0, 2, (2,3,4))
+
+# 减
+b = np.randome.randint(0, 2, (2,3,4))
+a-b
+
+# 减
+b = np.randome.randint(0, 2, (3,4))
+a-b
+
+# 减
+b = np.randome.randint(0, 2, 4)
+a-b
+
+# 减一个数
+b=1
+a-b
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;svd分解&quot;&gt;svd分解&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;U,S,V = np.linalg.svd(cov) # cov = USV
+np.allclose(cov, np.dot(X, np.dot(np.diag(S), V)) #get True
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;S是奇异值组成的数组，元素由大到小排序。U和V默认都是方阵，正交矩阵。&lt;/p&gt;
+
+&lt;h2 id=&quot;求数组前k个最大的数&quot;&gt;求数组前k个最大的数&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 求数组a前k个最大的数的index
+indexes = np.argsort(a)[:k]
+# 得到最大的k个数
+a[indexes]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;求数组中出现次数最多的数&quot;&gt;求数组中出现次数最多的数&lt;/h2&gt;
+&lt;p&gt;这种方法适用于a中数字为[0-n]，n不大的情况&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# counts[i]表示数字i在a中出现的次数
+counts = np.bincount(a)
+# 求a中出现次数最多的数
+np.argmax(counts)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;拷贝&quot;&gt;拷贝&lt;/h2&gt;
+&lt;p&gt;赋值和reshape操作是不会创建新的array对象的，执行copy才会创建一个相同的新对象&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a = np.array([1, 2, 3])
+c = a.reshape(3, 1)
+b = a #a, b, c指向同一个对象，修改a的同时会修改b,c
+d = np.copy(a) #a, b指向不同的对象，修改a不会修改b
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;取两个shape相同的array对应位置的最大值组成一个新的array&quot;&gt;取两个shape相同的array对应位置的最大值，组成一个新的array&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a = np.array([1,2,3])
+b = np.array([3,2,1])
+c = np.maximum(a, b) # c=[3,2,3]
+d = np.maximum(3, a) # c=[3,3,3]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+</description>
+        <pubDate>Fri, 22 Sep 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/python/numpy%E7%AC%94%E8%AE%B0.html</link>
+        <guid isPermaLink="true">http://localhost:4000/python/numpy%E7%AC%94%E8%AE%B0.html</guid>
+        
+        <category>numpy</category>
+        
+        
+        <category>python</category>
+        
+      </item>
+    
+      <item>
+        <title>Range-Sum-Query</title>
+        <description>&lt;h2 id=&quot;题目&quot;&gt;题目&lt;/h2&gt;
+&lt;h3 id=&quot;303-range-sum-query---immutable&quot;&gt;303. Range Sum Query - Immutable&lt;/h3&gt;
+&lt;p&gt;数据元素固定不变。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Given an integer array nums, find the sum of the elements between indices i and j (i ≤ j), inclusive.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;分析&quot;&gt;分析&lt;/h4&gt;
+&lt;p&gt;给定数组nums，求解sum(i, j)。&lt;/p&gt;
+
+&lt;p&gt;stage1: 只存储数组，每次查询都要计算元素和。空间复杂度O(N)，时间复杂度O(N)。这样的话会超时。&lt;/p&gt;
+
+&lt;p&gt;stage2: 定义二维数组sums，sums[i][j] == sum(i, j)。这样的话查询的时间复杂度降维O(1)，建立二维数组sums可以通过由对角线向外快展，时间复杂度$O(N^2)$，空间复杂度也是$O(N^2)。这样的话查询复杂度降下来了，但是内存使用超限。&lt;/p&gt;
+
+&lt;p&gt;stage3: stage2中的数组其实只用了对角线及其上半部分，为了减少空间消耗，可以通过一位数组之存储有用的数据，然后通过一个映射函数把sums[i][j]映射到某一个位置。空间使用减少了一半，但是没有数量级上的减小，仍然内存使用超限。&lt;/p&gt;
+
+&lt;p&gt;stage4: 定义数组&lt;code class=&quot;highlighter-rouge&quot;&gt;vector&amp;lt;int&amp;gt; presum(nums.size(), 0)&lt;/code&gt;，presum[i]表示从nums[0]到nums[i]之间所有数的和。空间复杂度O(N)，数组建立时间复杂度O(N)。每次查询只需要做一次减法&lt;code class=&quot;highlighter-rouge&quot;&gt;sum(i, j) = presum[j] - presum[i-1]&lt;/code&gt;，查询时间复杂度O(1)。&lt;/p&gt;
+
+&lt;p&gt;end: 这种解法的启示就是累加操作可以转换成一次减法。&lt;/p&gt;
+&lt;h3 id=&quot;303-range-sum-query---mutable&quot;&gt;303. Range Sum Query - Mutable&lt;/h3&gt;
+&lt;p&gt;数组元素可修改。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Given an integer array nums, find the sum of the elements between indices i and j (i ≤ j), inclusive.
+The update(i, val) function modifies nums by updating the element at index i to val.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;分析-1&quot;&gt;分析&lt;/h4&gt;
+&lt;p&gt;给定数组nums，需要实现的操作有：修改update(i, val), sum(i, j)。&lt;/p&gt;
+
+&lt;p&gt;stage1: 沿用上个题目最优解的思想，执行update需要更新presum[i]及其后边的所有元素，时间复杂度为O(N)。查询的时间复杂度仍未O(1)，但是会超时。&lt;/p&gt;
+
+&lt;p&gt;stage2: stage1中的问题出在update上，看了没过的样例发现有连续的多次update情况，考虑不在update操作中更新presum数组，而在把实际更新操作放到之后的第一次查询中，这样的话多次连续update实际只需要更新一次presum数组。需要额外定义一个数组保存nums和一个标记tUpdate表示是否进行了更新。update中只做&lt;code class=&quot;highlighter-rouge&quot;&gt;nums[i]=val&lt;/code&gt;赋值操作，然后设置tUpdate为true，时间复杂度为O(1)。sum中如果tUpdate为false直接求差，时间复杂度O(1)，否则说明之前更新过nums，需要先更新presum，然后求差，时间复杂度O(N)。仍然超时。&lt;/p&gt;
+
+&lt;p&gt;stage3: stage2整体上可能会缩短执行时间，但是没有从根本上降低update操作的时间复杂度。因此之前的思路本身有问题，需要一个新的思路。采用&lt;a href=&quot;http://dongxicheng.org/structure/segment-tree/&quot;&gt;SegmentTree线段树&lt;/a&gt;的方法，update和sum的时间复杂度都降为O(logN)，建树的时间空间复杂度都为O(NlogN)。&lt;/p&gt;
+
+&lt;p&gt;end: 这里用到了线段树这种新的数据结构，下文会有介绍。&lt;/p&gt;
+
+&lt;h2 id=&quot;数据结构算法&quot;&gt;数据结构&amp;amp;算法&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;线段树&lt;/li&gt;
+  &lt;li&gt;累加操作可以转换成一次减法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;segmenttree线段树&quot;&gt;SegmentTree线段树&lt;/h3&gt;
+&lt;p&gt;线段树在上文中的链接里有详细介绍，他的适用场景有如下要求：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;在数组中进行范围查询query(i, j)&lt;/li&gt;
+  &lt;li&gt;定长数组，数组长度不可变&lt;/li&gt;
+  &lt;li&gt;最好有数组元素的更新操作&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;用于实现上述范围求和问题的线段树的实现如下，要改造成求最大最小值的线段树只需要改一下_build和_update方法中的相应逻辑就可以了。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;struct SegmentTreeNode {
+    int valL;
+    int valR;
+    int sum;
+    SegmentTreeNode *pL;
+    SegmentTreeNode *pR;
+    SegmentTreeNode(int l, int r) : valL(l), valR(r), pL(NULL), pR(NULL) {}
+};
+
+class SegmentTree {
+public:
+    SegmentTree(vector&amp;lt;int&amp;gt; &amp;amp;nums){
+        pTree = NULL;
+        if(nums.size() == 0) return;
+        pTree = _build(nums, 0, nums.size()-1);
+        iSize = nums.size();
+    }
+    
+    ~SegmentTree(){
+        if(pTree) _delete(pTree);
+    }
+    
+    int get(int l, int r){
+        if(l &amp;lt; 0 || r &amp;gt;= iSize || r &amp;lt; l) return 0;
+        //cout &amp;lt;&amp;lt; pTree-&amp;gt;sum &amp;lt;&amp;lt; endl;
+        return _get(pTree, l ,r);
+    }
+    
+    int update(int i, int val){
+        if(i &amp;lt; 0 || i &amp;gt;= iSize) return 0;
+        return _update(pTree, i, val);
+    }   
+
+private:
+    SegmentTreeNode *_build(vector&amp;lt;int&amp;gt; &amp;amp;nums, int l, int r){
+        SegmentTreeNode *p = new SegmentTreeNode(l, r);
+        if( l == r) {
+            p-&amp;gt;sum = nums[l];
+            return p;
+        }
+        int mid = (l + r) / 2;
+        p-&amp;gt;pL = _build(nums, l, mid);
+        p-&amp;gt;pR = _build(nums, mid+1, r);
+        p-&amp;gt;sum = p-&amp;gt;pL-&amp;gt;sum + p-&amp;gt;pR-&amp;gt;sum;
+        return p;  
+    }
+    
+    void _delete(SegmentTreeNode *p){
+        if(p-&amp;gt;pL) _delete(p-&amp;gt;pL);
+        if(p-&amp;gt;pR) _delete(p-&amp;gt;pR);
+        delete p;
+    }
+    
+    int _get(SegmentTreeNode *p, int l, int r){
+        if(l == p-&amp;gt;valL &amp;amp;&amp;amp; r == p-&amp;gt;valR) return p-&amp;gt;sum;
+        int mid = (p-&amp;gt;valL + p-&amp;gt;valR) / 2;
+        if(r &amp;lt;= mid) return _get(p-&amp;gt;pL, l, r);
+        if(l &amp;gt; mid) return _get(p-&amp;gt;pR, l, r);
+        return _get(p-&amp;gt;pL, l, mid) + _get(p-&amp;gt;pR, mid+1, r);
+    }
+    
+    int _update(SegmentTreeNode *p, int i, int val){
+        int diff = 0;
+        if(p-&amp;gt;valL == p-&amp;gt;valR) {
+            diff = val - p-&amp;gt;sum;
+            p-&amp;gt;sum = val;
+            return diff;
+        }
+        int mid = (p-&amp;gt;valL + p-&amp;gt;valR) / 2;
+        if(i &amp;lt;= mid) diff = _update(p-&amp;gt;pL, i, val);
+        if(i &amp;gt; mid) diff = _update(p-&amp;gt;pR, i, val);
+        p-&amp;gt;sum += diff;
+        return diff;
+    }
+    
+    SegmentTreeNode *pTree;
+    int iSize;
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Fri, 28 Jul 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/Range-Sum-Query.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E7%AE%97%E6%B3%95%E9%A2%98%E8%A7%A3/Range-Sum-Query.html</guid>
+        
+        <category>leetcode</category>
+        
+        
+        <category>算法题解</category>
+        
+      </item>
     
       <item>
         <title>从Python2麻烦的编码说起</title>
@@ -410,241 +768,6 @@ l.pop() #相当于出栈，删除最后一个元素
         
         
         <category>杂谈</category>
-        
-      </item>
-    
-      <item>
-        <title>vim的使用</title>
-        <description>&lt;h2 id=&quot;我的vimrc&quot;&gt;我的.vimrc&lt;/h2&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set nu
-syntax on
-
-&quot; 自定义键映射，方便使用
-inoremap jk &amp;lt;Esc&amp;gt;
-inoremap vv &amp;lt;Esc&amp;gt;:w&amp;lt;Enter&amp;gt;
-nnoremap vv :w&amp;lt;Enter&amp;gt;
-inoremap qq &amp;lt;Esc&amp;gt;:wq&amp;lt;Enter&amp;gt;
-nnoremap qq :wq&amp;lt;Enter&amp;gt;
-
-set ts=4
-set expandtab
-set autoindent
-
-&quot; 显示下划线
-set cursorline
-
-
-&quot; Vundle
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'git://github.com/scrooloose/nerdtree.git'
-call vundle#end()
-&quot; Vundle end
-
-set autochdir
-let mapleader=&quot;,&quot;
-let NERDTreeChDirMode=2
-nnoremap &amp;lt;leader&amp;gt;f :NERDTree .&amp;lt;CR&amp;gt;
-nnoremap &amp;lt;leader&amp;gt;&amp;lt;Tab&amp;gt; &amp;lt;C-w&amp;gt;
-
-&quot; 打开文件时定位到上次关闭的位置
-autocmd BufReadPost *
-\ if line(&quot;'\&quot;&quot;)&amp;gt;0&amp;amp;&amp;amp;line(&quot;'\&quot;&quot;)&amp;lt;=line(&quot;$&quot;) |
-\ exe &quot;normal g'\&quot;&quot; |
-\ endif
-
-&quot; 插入文件头
-autocmd BufNewFile *.py,*.sh, exec &quot;:call SetTitle()&quot;
-let $author_name = &quot;abelx&quot;
-let $author_email = &quot;theabelx@163.com&quot;
-
-func SetTitle()
-if &amp;amp;filetype == 'sh'
-call setline(1,&quot;\###################################################################&quot;)
-call append(line(&quot;.&quot;), &quot;\# File Name: &quot;.expand(&quot;%&quot;))
-call append(line(&quot;.&quot;)+1, &quot;\# Author: &quot;.$author_name)
-call append(line(&quot;.&quot;)+2, &quot;\# mail: &quot;.$author_email)
-call append(line(&quot;.&quot;)+3, &quot;\# Created Time: &quot;.strftime(&quot;%c&quot;))
-call append(line(&quot;.&quot;)+4, &quot;\#=============================================================&quot;)
-call append(line(&quot;.&quot;)+5, &quot;\#!/bin/bash&quot;)
-call append(line(&quot;.&quot;)+6, &quot;&quot;)
-else
-call setline(1,&quot;\###################################################################&quot;)
-call append(line(&quot;.&quot;), &quot;\# File Name: &quot;.expand(&quot;%&quot;))
-call append(line(&quot;.&quot;)+1, &quot;\# Author: &quot;.$author_name)
-call append(line(&quot;.&quot;)+2, &quot;\# mail: &quot;.$author_email)
-call append(line(&quot;.&quot;)+3, &quot;\# Created Time: &quot;.strftime(&quot;%c&quot;))
-call append(line(&quot;.&quot;)+4, &quot;\#=============================================================&quot;)
-call append(line(&quot;.&quot;)+5, &quot;\#!/usr/bin/python&quot;)
-call append(line(&quot;.&quot;)+6, &quot;&quot;)
-endif
-endfunc
-&quot; 插入文件头 end
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;常用命令&quot;&gt;常用命令&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;全文替换&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; :%s/vivian/sky/g
- :1,$s/vivian/sky/g
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;查找&lt;/p&gt;
-
-    &lt;p&gt;/，n向后，N向前&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;粘贴时缩进的问题很烦&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; :set paste #粘贴前
- :set nopaste #粘贴后
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;显示特殊符号&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; :set list
- :set nolist
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;撤销 &amp;amp; 取消撤销&lt;/p&gt;
-
-    &lt;p&gt;u &amp;amp; &amp;lt;C-r&amp;gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;杂记&quot;&gt;杂记&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;hjkl是vim模式的精髓，要慢慢体会。&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://easwy.com/blog/archives/advanced-vim-skills-basic-move-method/&quot;&gt;一个讲vim的博客系列&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-</description>
-        <pubDate>Thu, 22 Jun 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/%E5%B7%A5%E5%85%B7/vim%E7%9A%84%E4%BD%BF%E7%94%A8.html</link>
-        <guid isPermaLink="true">http://localhost:4000/%E5%B7%A5%E5%85%B7/vim%E7%9A%84%E4%BD%BF%E7%94%A8.html</guid>
-        
-        <category>vim</category>
-        
-        <category>linux</category>
-        
-        
-        <category>工具</category>
-        
-      </item>
-    
-      <item>
-        <title>shell脚本的写法</title>
-        <description>&lt;h2 id=&quot;变量&quot;&gt;变量&lt;/h2&gt;
-&lt;h3 id=&quot;用户定义变量&quot;&gt;用户定义变量&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var1=&quot;123&quot;
-echo $var1
-echo &quot;${var1}test&quot;
-var2=$var1
-$var2=$var1 #不对
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;注意&quot;&gt;注意&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;加不加括号都行，括号为了识别变量的边界&lt;/li&gt;
-  &lt;li&gt;变量作为左值不加$，作为右值一定要加&lt;/li&gt;
-  &lt;li&gt;赋值等号两边不能有空格&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;常用系统变量&quot;&gt;常用系统变量&lt;/h3&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;变量&lt;/th&gt;
-      &lt;th&gt;含义&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$#&lt;/td&gt;
-      &lt;td&gt;参数个数，不包括文件名本身&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$0&lt;/td&gt;
-      &lt;td&gt;文件名&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$1&lt;/td&gt;
-      &lt;td&gt;第一个参数，以此类推&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;数组&quot;&gt;数组&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;arr1=(1 2 3) #初始化
-arr1[0]=1 #赋值，下标范围没有限制
-echo ${arr1[1]} #取值
-echo ${#arr1[*]} #元素个数
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;注释&quot;&gt;注释&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 单行注释
-
-&quot;
-多行
-注释
-&quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;运算符&quot;&gt;运算符&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell-basic-operators.html&quot;&gt;菜鸟教程运算符&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;括号&quot;&gt;括号&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/tttyd/article/details/11742241&quot;&gt;关于shell中各种括号的解释&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;方括号右边和其他字符之间一定要留空格&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if [ 1 -gt 1 ]
-then
-  echo 1
-fi
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;相关资料&quot;&gt;相关资料&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;shell菜鸟教程&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Thu, 22 Jun 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/%E8%AF%AD%E8%A8%80/shell%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/%E8%AF%AD%E8%A8%80/shell%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95.html</guid>
-        
-        <category>shell</category>
-        
-        <category>linux</category>
-        
-        
-        <category>语言</category>
         
       </item>
     
