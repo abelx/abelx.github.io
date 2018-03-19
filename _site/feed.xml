@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 19 Mar 2018 16:31:39 +0800</pubDate>
-    <lastBuildDate>Mon, 19 Mar 2018 16:31:39 +0800</lastBuildDate>
+    <pubDate>Mon, 19 Mar 2018 16:33:05 +0800</pubDate>
+    <lastBuildDate>Mon, 19 Mar 2018 16:33:05 +0800</lastBuildDate>
     <generator>Jekyll v3.5.0</generator>
     
       <item>
@@ -710,47 +710,6 @@ output:
       </item>
     
       <item>
-        <title>新博客开通了</title>
-        <description>&lt;h2 id=&quot;关于博客&quot;&gt;关于博客&lt;/h2&gt;
-&lt;p&gt;算下来，这已经是第四个博客了。前三个加起来应该也没写多少。:)&lt;/p&gt;
-
-&lt;p&gt;第一个博客应该是大一的时候开通的吧，在cnblogs。当时，应该还在工作室，看别人有博客就自己也开通一个学着写，结果写了没两天就不了了之了。第二个博客是自己写的，在工作室一直写php，后来去学了点html+css就想着自己写一个博客就当练手了。结果写出来了，很简陋，本来也只是一时兴起后来也就没用了。第三个博客是在csdn，这个应该是用的比较长得了，不过到现在也就写了不到十篇文章。当时应该是大三，跟着李林老师学习，博客多少还是记录了一下当时的学习成果。  再后来，因为嫌写博客麻烦，就不怎么写了，平时想记录些什么基本就放在本地或者用作业部落。结果就导致现在作业部落上边记录的东西也不少，可是乱七八糟的，只有几篇是经常看的。&lt;/p&gt;
-
-&lt;h2 id=&quot;recording-and-thinking&quot;&gt;Recording And Thinking&lt;/h2&gt;
-&lt;p&gt;我觉得博客这个东西吧，主要的作用是记录，可以记录学习和生活的经历，但更重要的是记录自己的思考。接触过得东西，只是单纯的记录下来，不思考不整理，慢慢地也就丢掉了。&lt;/p&gt;
-
-&lt;p&gt;研一马上就要结束了，不读博的话明年这个时候也要开始找工作了。在百度的经历让我意识到了记录和思考的重要性。过去的这段时间，确实也思考了一些东西，认识到了自己需要改变的地方。以后有类似的想法及时记录下来吧。&lt;/p&gt;
-
-&lt;h2 id=&quot;怎么写&quot;&gt;怎么写&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;每周写一篇周报。&lt;/strong&gt;像在公司的周报一样，但是不是写项目进展。先罗列一下一周做的事情，然后作总结写写这周的收获和感想，最后写一下下周的安排。这样也算是一种时间管理和安排的形式吧。写博客时间的话就定在周四晚上，花一到两个小时的时间，以后回实验室因为有实验室周报的原因可以调整到一起。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;每个月至少认真写一篇博客。&lt;/strong&gt;可以是教程，可以是感想，每个月至少写一篇，一定要认真写。不用着急一会儿就写完，三五七八天都可以，一定要保证质量。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;随手记录。&lt;/strong&gt;随手写的笔记也可以放上来，反正平时写笔记都是用的markdown，只是加个YAML头的事。:)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;最后&quot;&gt;最后&lt;/h2&gt;
-&lt;p&gt;可能重复做的工作，如果写脚本可以完成的话，而且长远看效率并不低的话为什么不写一个呢？&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;明确目标。&lt;/li&gt;
-  &lt;li&gt;分析问题，学会拆解。&lt;/li&gt;
-  &lt;li&gt;按部就班，不要浮躁。&lt;/li&gt;
-  &lt;li&gt;坚持！坚持！&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Thu, 22 Jun 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/%E6%9D%82%E8%B0%88/%E6%96%B0%E5%8D%9A%E5%AE%A2%E5%BC%80%E9%80%9A%E4%BA%86.html</link>
-        <guid isPermaLink="true">http://localhost:4000/%E6%9D%82%E8%B0%88/%E6%96%B0%E5%8D%9A%E5%AE%A2%E5%BC%80%E9%80%9A%E4%BA%86.html</guid>
-        
-        <category>杂谈</category>
-        
-        
-        <category>杂谈</category>
-        
-      </item>
-    
-      <item>
         <title>vim的使用</title>
         <description>&lt;h2 id=&quot;我的vimrc&quot;&gt;我的.vimrc&lt;/h2&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set nu
@@ -877,6 +836,111 @@ endfunc
         
         
         <category>工具</category>
+        
+      </item>
+    
+      <item>
+        <title>shell脚本的写法</title>
+        <description>&lt;h2 id=&quot;变量&quot;&gt;变量&lt;/h2&gt;
+&lt;h3 id=&quot;用户定义变量&quot;&gt;用户定义变量&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var1=&quot;123&quot;
+echo $var1
+echo &quot;${var1}test&quot;
+var2=$var1
+$var2=$var1 #不对
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;注意&quot;&gt;注意&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;加不加括号都行，括号为了识别变量的边界&lt;/li&gt;
+  &lt;li&gt;变量作为左值不加$，作为右值一定要加&lt;/li&gt;
+  &lt;li&gt;赋值等号两边不能有空格&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;常用系统变量&quot;&gt;常用系统变量&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;变量&lt;/th&gt;
+      &lt;th&gt;含义&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;$#&lt;/td&gt;
+      &lt;td&gt;参数个数，不包括文件名本身&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;$0&lt;/td&gt;
+      &lt;td&gt;文件名&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;$1&lt;/td&gt;
+      &lt;td&gt;第一个参数，以此类推&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;数组&quot;&gt;数组&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;arr1=(1 2 3) #初始化
+arr1[0]=1 #赋值，下标范围没有限制
+echo ${arr1[1]} #取值
+echo ${#arr1[*]} #元素个数
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;注释&quot;&gt;注释&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 单行注释
+
+&quot;
+多行
+注释
+&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;运算符&quot;&gt;运算符&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell-basic-operators.html&quot;&gt;菜鸟教程运算符&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;括号&quot;&gt;括号&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/tttyd/article/details/11742241&quot;&gt;关于shell中各种括号的解释&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;方括号右边和其他字符之间一定要留空格&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if [ 1 -gt 1 ]
+then
+  echo 1
+fi
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;相关资料&quot;&gt;相关资料&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;shell菜鸟教程&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 22 Jun 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E8%AF%AD%E8%A8%80/shell%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E8%AF%AD%E8%A8%80/shell%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95.html</guid>
+        
+        <category>shell</category>
+        
+        <category>linux</category>
+        
+        
+        <category>语言</category>
         
       </item>
     
