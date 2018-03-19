@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 19 Mar 2018 15:34:41 +0800</pubDate>
-    <lastBuildDate>Mon, 19 Mar 2018 15:34:41 +0800</lastBuildDate>
+    <pubDate>Mon, 19 Mar 2018 16:31:39 +0800</pubDate>
+    <lastBuildDate>Mon, 19 Mar 2018 16:31:39 +0800</lastBuildDate>
     <generator>Jekyll v3.5.0</generator>
     
       <item>
@@ -517,39 +517,6 @@ f = codecs.open(&quot;demo.txt&quot;, 'r', 'utf-8')
       </item>
     
       <item>
-        <title>周报</title>
-        <description>&lt;p&gt;说好的每周四的周报，第一周就给忘了…[摊手]，好了，开始第一个周报。&lt;/p&gt;
-
-&lt;p&gt;周二晚上，当我走出NLP的考场的时候，意味着可能我学生生涯的考试已经就此结束了。从此以后，可能就告别了所谓的上课，作业，考勤，考试和学分之类的东西，想想还有点小激动。于是，最近辛勤复习考试的奖励[可能大部分时间是在看剧，顺便复习]，周三周四好好休息了一下。&lt;/p&gt;
-
-&lt;p&gt;下周就要离开雁栖湖了，要回到市里了还是很开心的。不过，要离开这个依山傍水的校园，还有安静舒适的小单间多少还是有点舍不得。这里跟以前的清水河比，偏僻程度有过之而无不及，没有都市的繁华，是一个学习科研的好地方。我没去过欧美的高校，不过美国的大学不是一般都在小镇上吗？会不会跟这里差不多啊，以后有机会一定要去看看。这一年里，由于种种原因，没怎么好好的在这里待着，所以，接下来一周多的时间我希望能慢慢的享受一下在这里的最后的学习生活。坐在窗户旁边，每天都能听到外边有拉着箱子离去的声音，他们可能就要永远离开这个校园了，不知道他们此刻的心情如何呢？&lt;/p&gt;
-
-&lt;h2 id=&quot;上周总结&quot;&gt;上周总结&lt;/h2&gt;
-&lt;p&gt;除了复习之外，之前两个周主要在做NLP的大作业，就是实现一个英文单词拼写纠错。这个题目目看起来挺简单的，我在网上找到了一个30行Python代码实现的拼写纠错，非常简洁。但是毕竟是最后一个大作业，我还是想好好做一下，所以找了两篇论文，看一下有没有更好的方法。现在实现的版本基本是宗成庆老师的讲义上边的方法，采用D氏编辑距离作为单词距离的度量，把词典组织成一个trie树，查找候选的过程采用剪枝策略加速。所以，基本的功能已经实现了，接下来要通过找到的两篇论文，一方面尽量做优化改进，另一方面了解更多有关拼写纠错的思路和方法，作为学习。&lt;/p&gt;
-
-&lt;h2 id=&quot;下周计划&quot;&gt;下周计划&lt;/h2&gt;
-&lt;h3 id=&quot;拼写纠错&quot;&gt;拼写纠错&lt;/h3&gt;
-&lt;ol&gt;
-  &lt;li&gt;把论文剩下的部分读完，改进程序。&lt;/li&gt;
-  &lt;li&gt;对论文中的方法和思路进行记录总结。&lt;/li&gt;
-  &lt;li&gt;完成大作业的文档，同时结合论文的总结写一篇以拼写纠错为主题的博客。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;程序分析的报告&quot;&gt;程序分析的报告&lt;/h3&gt;
-&lt;p&gt;夏季学期的课程作业，应该比较水。题目就是选数据流分析、过程间分析、字符串分析、指针分析、符号执行等其中任意一个主题，读论文，写总结。我还是比较感兴趣，抓紧时间了解一下。这个12号之前要交，所以先写这个。&lt;/p&gt;
-</description>
-        <pubDate>Thu, 06 Jul 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/%E5%91%A8%E6%8A%A5/%E5%91%A8%E6%8A%A5.html</link>
-        <guid isPermaLink="true">http://localhost:4000/%E5%91%A8%E6%8A%A5/%E5%91%A8%E6%8A%A5.html</guid>
-        
-        <category>周报</category>
-        
-        
-        <category>周报</category>
-        
-      </item>
-    
-      <item>
         <title>Python高级写作技巧</title>
         <description>&lt;h3 id=&quot;lambda&quot;&gt;lambda&lt;/h3&gt;
 
@@ -780,6 +747,136 @@ output:
         
         
         <category>杂谈</category>
+        
+      </item>
+    
+      <item>
+        <title>vim的使用</title>
+        <description>&lt;h2 id=&quot;我的vimrc&quot;&gt;我的.vimrc&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set nu
+syntax on
+
+&quot; 自定义键映射，方便使用
+inoremap jk &amp;lt;Esc&amp;gt;
+inoremap vv &amp;lt;Esc&amp;gt;:w&amp;lt;Enter&amp;gt;
+nnoremap vv :w&amp;lt;Enter&amp;gt;
+inoremap qq &amp;lt;Esc&amp;gt;:wq&amp;lt;Enter&amp;gt;
+nnoremap qq :wq&amp;lt;Enter&amp;gt;
+
+set ts=4
+set expandtab
+set autoindent
+
+&quot; 显示下划线
+set cursorline
+
+
+&quot; Vundle
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'git://github.com/scrooloose/nerdtree.git'
+call vundle#end()
+&quot; Vundle end
+
+set autochdir
+let mapleader=&quot;,&quot;
+let NERDTreeChDirMode=2
+nnoremap &amp;lt;leader&amp;gt;f :NERDTree .&amp;lt;CR&amp;gt;
+nnoremap &amp;lt;leader&amp;gt;&amp;lt;Tab&amp;gt; &amp;lt;C-w&amp;gt;
+
+&quot; 打开文件时定位到上次关闭的位置
+autocmd BufReadPost *
+\ if line(&quot;'\&quot;&quot;)&amp;gt;0&amp;amp;&amp;amp;line(&quot;'\&quot;&quot;)&amp;lt;=line(&quot;$&quot;) |
+\ exe &quot;normal g'\&quot;&quot; |
+\ endif
+
+&quot; 插入文件头
+autocmd BufNewFile *.py,*.sh, exec &quot;:call SetTitle()&quot;
+let $author_name = &quot;abelx&quot;
+let $author_email = &quot;theabelx@163.com&quot;
+
+func SetTitle()
+if &amp;amp;filetype == 'sh'
+call setline(1,&quot;\###################################################################&quot;)
+call append(line(&quot;.&quot;), &quot;\# File Name: &quot;.expand(&quot;%&quot;))
+call append(line(&quot;.&quot;)+1, &quot;\# Author: &quot;.$author_name)
+call append(line(&quot;.&quot;)+2, &quot;\# mail: &quot;.$author_email)
+call append(line(&quot;.&quot;)+3, &quot;\# Created Time: &quot;.strftime(&quot;%c&quot;))
+call append(line(&quot;.&quot;)+4, &quot;\#=============================================================&quot;)
+call append(line(&quot;.&quot;)+5, &quot;\#!/bin/bash&quot;)
+call append(line(&quot;.&quot;)+6, &quot;&quot;)
+else
+call setline(1,&quot;\###################################################################&quot;)
+call append(line(&quot;.&quot;), &quot;\# File Name: &quot;.expand(&quot;%&quot;))
+call append(line(&quot;.&quot;)+1, &quot;\# Author: &quot;.$author_name)
+call append(line(&quot;.&quot;)+2, &quot;\# mail: &quot;.$author_email)
+call append(line(&quot;.&quot;)+3, &quot;\# Created Time: &quot;.strftime(&quot;%c&quot;))
+call append(line(&quot;.&quot;)+4, &quot;\#=============================================================&quot;)
+call append(line(&quot;.&quot;)+5, &quot;\#!/usr/bin/python&quot;)
+call append(line(&quot;.&quot;)+6, &quot;&quot;)
+endif
+endfunc
+&quot; 插入文件头 end
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;常用命令&quot;&gt;常用命令&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;全文替换&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; :%s/vivian/sky/g
+ :1,$s/vivian/sky/g
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;查找&lt;/p&gt;
+
+    &lt;p&gt;/，n向后，N向前&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;粘贴时缩进的问题很烦&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; :set paste #粘贴前
+ :set nopaste #粘贴后
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;显示特殊符号&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; :set list
+ :set nolist
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;撤销 &amp;amp; 取消撤销&lt;/p&gt;
+
+    &lt;p&gt;u &amp;amp; &amp;lt;C-r&amp;gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;杂记&quot;&gt;杂记&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;hjkl是vim模式的精髓，要慢慢体会。&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://easwy.com/blog/archives/advanced-vim-skills-basic-move-method/&quot;&gt;一个讲vim的博客系列&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+</description>
+        <pubDate>Thu, 22 Jun 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/%E5%B7%A5%E5%85%B7/vim%E7%9A%84%E4%BD%BF%E7%94%A8.html</link>
+        <guid isPermaLink="true">http://localhost:4000/%E5%B7%A5%E5%85%B7/vim%E7%9A%84%E4%BD%BF%E7%94%A8.html</guid>
+        
+        <category>vim</category>
+        
+        <category>linux</category>
+        
+        
+        <category>工具</category>
         
       </item>
     
