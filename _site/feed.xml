@@ -6,8 +6,8 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 22 Sep 2017 09:56:08 +0800</pubDate>
-    <lastBuildDate>Fri, 22 Sep 2017 09:56:08 +0800</lastBuildDate>
+    <pubDate>Mon, 19 Mar 2018 15:34:41 +0800</pubDate>
+    <lastBuildDate>Mon, 19 Mar 2018 15:34:41 +0800</lastBuildDate>
     <generator>Jekyll v3.5.0</generator>
     
       <item>
@@ -593,6 +593,18 @@ heapq.nsmallest(n, l)
 del[l[-1]] #法1，删掉最后一个元素
 l.remove(l[-1]) #法2，删掉第一个值为l[-1]（1）的元素
 l.pop() #相当于出栈，删除最后一个元素
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;遍历list同时获得index&quot;&gt;遍历list同时获得index&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;for idx, v in enumerate(range(1, 5))
+    print idx, v
+'''
+output:
+0 1
+1 2
+2 3
+3 4
+'''
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </description>
