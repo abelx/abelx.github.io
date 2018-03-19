@@ -6,9 +6,65 @@
 </description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 19 Mar 2018 16:33:05 +0800</pubDate>
-    <lastBuildDate>Mon, 19 Mar 2018 16:33:05 +0800</lastBuildDate>
+    <pubDate>Mon, 19 Mar 2018 16:42:29 +0800</pubDate>
+    <lastBuildDate>Mon, 19 Mar 2018 16:42:29 +0800</lastBuildDate>
     <generator>Jekyll v3.5.0</generator>
+    
+      <item>
+        <title>Word2vec-vs.-fastText</title>
+        <description>&lt;h2 id=&quot;word2vec&quot;&gt;word2vec&lt;/h2&gt;
+&lt;p&gt;Xin Rong 的论文：『word2vec Parameter Learning Explained』
+讲的非常好&lt;/p&gt;
+
+&lt;h3 id=&quot;两种模型&quot;&gt;两种模型&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;层次结构：one_hot_input-&amp;gt;[embeding_layer]-&amp;gt;hidden-&amp;gt;[output_layer]-&amp;gt;softmax/heritical_softmax/negative_sampling&lt;/li&gt;
+  &lt;li&gt;tensor的shape：v-&amp;gt;(v, d)-&amp;gt;d-&amp;gt;(d, v)/(d, v-1)，其中d是word vector的size，v是词典的size&lt;/li&gt;
+  &lt;li&gt;skipgram：一个word预测上下文k个word，loss等于k个目标词的loss之和&lt;/li&gt;
+  &lt;li&gt;cbow：k个context word预测一个word，隐层等于k个word的embeding vector求mean&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;heritical-softmax&quot;&gt;heritical softmax&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;权重更新的复杂度是O(d&lt;em&gt;log(v))，用一般的softmax的话是O(d&lt;/em&gt;v)&lt;/li&gt;
+  &lt;li&gt;输出层不再是表示词典中每个word的结点，而是一个霍夫曼树，每个叶节点表示一个word。实际上就是把一个v分类问题变成了lg(v)个2分类问题，每个非叶结点都表示一个二分类问题。
+参考 &lt;a href=&quot;http://www.trevorsimonton.com/blog/2016/12/15/huffman-tree-in-word2vec.html&quot;&gt;1&lt;/a&gt; &amp;amp; &lt;a href=&quot;https://zhuanlan.zhihu.com/p/26306795&quot;&gt;2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;negative-sampling&quot;&gt;negative sampling&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;权重更新的复杂度是O(d*k)&lt;/li&gt;
+  &lt;li&gt;每次forward和backward都在整个词典上随机采样k个word负样本，当然只有目标word是正样本，计算softmax&lt;/li&gt;
+  &lt;li&gt;它和heritical softmax都是加快训练的trick，减小计算量&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;fasttext&quot;&gt;fastText&lt;/h2&gt;
+&lt;p&gt;包含word representation和text classification两个部分&lt;/p&gt;
+
+&lt;h3 id=&quot;word-representation&quot;&gt;word representation&lt;/h3&gt;
+&lt;p&gt;代码的一些细节可以参考博文&lt;a href=&quot;https://heleifz.github.io/14732610572844.html&quot;&gt;3&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;和word2vec有两个模型，两个trick&lt;/li&gt;
+  &lt;li&gt;可以表示OOV(out of vocabulary) word，用到了char n-gram方法，每个char gram都有一个向量，用所有gram的和表示单词，参考论文&lt;a href=&quot;https://arxiv.org/abs/1607.04606&quot;&gt;4&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;text-classification&quot;&gt;text classification&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;模型和skipgram很像，在输入层增加了word n-gram，隐层是输入层经过embeding后的mean。层次结构：one_hot_input-&amp;gt;[embeding_layer]-&amp;gt;hidden-&amp;gt;[output_layer]-&amp;gt;softmax/heritical_softmax/negative_sampling&lt;/li&gt;
+  &lt;li&gt;tensor的shape：v+b-&amp;gt;(v+b, d)-&amp;gt;d-&amp;gt;(d, c)/(d, v-1)，其中d是word vector的size，v是词典的size，b是hash表的buket数，c是类别数&lt;/li&gt;
+  &lt;li&gt;使用了hash方法来保存n-gram&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Mon, 19 Mar 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/nlp/Word2vec.html</link>
+        <guid isPermaLink="true">http://localhost:4000/nlp/Word2vec.html</guid>
+        
+        
+        <category>NLP</category>
+        
+      </item>
     
       <item>
         <title>语言模型</title>
@@ -836,111 +892,6 @@ endfunc
         
         
         <category>工具</category>
-        
-      </item>
-    
-      <item>
-        <title>shell脚本的写法</title>
-        <description>&lt;h2 id=&quot;变量&quot;&gt;变量&lt;/h2&gt;
-&lt;h3 id=&quot;用户定义变量&quot;&gt;用户定义变量&lt;/h3&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var1=&quot;123&quot;
-echo $var1
-echo &quot;${var1}test&quot;
-var2=$var1
-$var2=$var1 #不对
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;注意&quot;&gt;注意&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;加不加括号都行，括号为了识别变量的边界&lt;/li&gt;
-  &lt;li&gt;变量作为左值不加$，作为右值一定要加&lt;/li&gt;
-  &lt;li&gt;赋值等号两边不能有空格&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;常用系统变量&quot;&gt;常用系统变量&lt;/h3&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;变量&lt;/th&gt;
-      &lt;th&gt;含义&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$#&lt;/td&gt;
-      &lt;td&gt;参数个数，不包括文件名本身&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$0&lt;/td&gt;
-      &lt;td&gt;文件名&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;$1&lt;/td&gt;
-      &lt;td&gt;第一个参数，以此类推&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;数组&quot;&gt;数组&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;arr1=(1 2 3) #初始化
-arr1[0]=1 #赋值，下标范围没有限制
-echo ${arr1[1]} #取值
-echo ${#arr1[*]} #元素个数
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;注释&quot;&gt;注释&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# 单行注释
-
-&quot;
-多行
-注释
-&quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;运算符&quot;&gt;运算符&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell-basic-operators.html&quot;&gt;菜鸟教程运算符&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;括号&quot;&gt;括号&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/tttyd/article/details/11742241&quot;&gt;关于shell中各种括号的解释&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;方括号右边和其他字符之间一定要留空格&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;if [ 1 -gt 1 ]
-then
-  echo 1
-fi
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;相关资料&quot;&gt;相关资料&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.runoob.com/linux/linux-shell.html&quot;&gt;shell菜鸟教程&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Thu, 22 Jun 2017 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/%E8%AF%AD%E8%A8%80/shell%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95.html</link>
-        <guid isPermaLink="true">http://localhost:4000/%E8%AF%AD%E8%A8%80/shell%E8%84%9A%E6%9C%AC%E7%9A%84%E5%86%99%E6%B3%95.html</guid>
-        
-        <category>shell</category>
-        
-        <category>linux</category>
-        
-        
-        <category>语言</category>
         
       </item>
     
