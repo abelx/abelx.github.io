@@ -5,7 +5,7 @@
  subtitle: "题目来自LeetCode，对于一个数组nums，查询索引i到j之间所有数的和。实际上包括两个题目，一个是数组固定不变，另一个是数组长度固定，值可变。"
  date: 2017-07-28 
  author: abelx 
- category: 算法题解
+ category: 算法
  tags: leetcode
  finished: true 
  
