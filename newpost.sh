@@ -25,4 +25,4 @@ finished: false \n \
 
 " > _posts/$filename
 
-open /Applications/MacDown.app _posts/$filename #打开MacDown
+open _posts/$filename -a /Applications/MacDown.app #打开MacDown
